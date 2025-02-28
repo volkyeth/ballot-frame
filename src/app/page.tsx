@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import App from "./app";
+import { redirect } from "next/navigation";
 
 const appUrl = process.env.NEXT_PUBLIC_URL;
 
@@ -7,11 +7,11 @@ const frame = {
   version: "next",
   imageUrl: `${appUrl}/opengraph-image`,
   button: {
-    title: "Launch Frame",
+    title: "Launch Ballot Frame",
     action: {
       type: "launch_frame",
-      name: "Farcaster Frames v2 Demo",
-      url: appUrl,
+      name: "Ballot Frame",
+      url: `${appUrl}/frames/ballot/`,
       splashImageUrl: `${appUrl}/splash.png`,
       splashBackgroundColor: "#f7f7f7",
     },
@@ -22,10 +22,10 @@ export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Farcaster Frames v2 Demo",
+    title: "Ballot Frame",
     openGraph: {
-      title: "Farcaster Frames v2 Demo",
-      description: "A Farcaster Frames v2 demo app.",
+      title: "Ballot Frame",
+      description: "Create and vote on ballots with Farcaster Frames v2",
     },
     other: {
       "fc:frame": JSON.stringify(frame),
@@ -34,5 +34,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function Home() {
-  return (<App />);
+  redirect("/frames/ballot");
 }
