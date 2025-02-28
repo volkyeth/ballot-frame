@@ -4,11 +4,11 @@ import { addOptionToBallot } from "~/lib/kv";
 // POST /api/ballots/[id]/options - Add an option to a ballot
 export async function POST(
     request: NextRequest,
-    context: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         // Await params before accessing its properties
-        const { id } = await context.params;
+        const { id } = await params;
         const { text, fid } = await request.json();
 
         if (!text || typeof text !== "string") {
